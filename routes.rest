@@ -1,0 +1,9 @@
+# LOCALHOST
+GET http://localhost:3000/contacts 
+###
+GET http://localhost:3000/contacts/644c40654a331796e277222e
+###
+GET http://localhost:3000/contacts/644c40744a331796e2772230
+
+
+# DEPLOYMENT

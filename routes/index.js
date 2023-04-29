@@ -1,8 +1,10 @@
-const routes = require('express').Router();
-const lesson1Controller = require('../controllers/lesson1');
+const express = require('express');
+const router = express.Router();
 
-routes.get('/', lesson1Controller.sarahRoute);
-routes.get('/emily', lesson1Controller.emilyRoute);
-routes.get('/hannah', lesson1Controller.hannahRoute);
+router.get('/', (req, res) => {
+    res.send(`cse341 | Juan Pablo Valencia | <a href="https://cse341valencia.onrender.com/contacts">https://cse341valencia.onrender.com/contacts</a>`);
+});
 
-module.exports = routes;
+router.use('/contacts', require('./contacts'));
+
+module.exports = router;

@@ -1,13 +1,24 @@
-//This line imports the Express module
 const express = require('express');
-//This line creates a new instance of the Express application
+const bodyParser = require('body-parser');
+const mongodb = require('./db/connect');
+const port = process.env.PORT || 3000;
 const app = express();
 
-const port = 3000;
+app
+  .use(bodyParser.json())
+  .use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  })
+  .use('/', require('./routes'));
 
-app.use('/', require('./routes'));
+mongodb.initDb((err, mongodb) => {
+  if (err) {
+    console.log(err);
+  } else {
+    app.listen(port);
+    console.log(`Connected to DB and listening on ${port}`);
+  }
+});
 
-//This line tells the server to start listening for incoming requests
-app.listen(process.env.port || port);
-
-console.log('http://localhost:' + (process.env.port || port) + '/');
+console.log(`Server running at http://localhost:${port}/`);
