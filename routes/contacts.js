@@ -1,8 +1,8 @@
-const express = require("express");
-const contactsController = require("../controllers/contacts");
-const router = express.Router();
+import { Router } from 'express';
+import contactsController from '../controllers/contacts.js';
+const router = Router();
 
-router.get("/", contactsController.getAll); // http://localhost:3000/contaacts/
-router.get("/:id", contactsController.getSingle); // http://localhost:3000/contacts/id
+router.get('/', contactsController.getAll); // http://localhost:3000/contaacts/
+router.get('/:id', contactsController.getSingle); // http://localhost:3000/contacts/id
 
-module.exports = router;
+export default router;

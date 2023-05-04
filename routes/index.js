@@ -1,11 +1,13 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from 'express';
+import contactsRouter from './contacts.js';
 
-router.get("/", (req, res) => {
+const router = Router();
+
+router.get('/', (req, res) => {
   res.send(`cse341 | Juan Pablo Valencia | 
     <a href="https://cse341valencia.onrender.com/contacts">https://cse341valencia.onrender.com/contacts</a>`);
 });
 
-router.use("/contacts", require("./contacts"));
+router.use('/contacts', contactsRouter);
 
-module.exports = router;
+export default router;
