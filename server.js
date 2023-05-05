@@ -11,6 +11,7 @@ const app = express();
 
 app
   .use(bodyParser.json()) //use the body-parser middleware, which helps us decode the body from an HTTP request:
+  .use(bodyParser.urlencoded({ extended: true })) // extract data from the <form> element and add them to the body property in the request object.
   .use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     next();
@@ -22,8 +23,6 @@ initDb((err) => {
     console.log(err);
   } else {
     app.listen(port);
-    console.log(`Connected to DB and listening on ${port}`);
+    console.log(`Connected to DB and listening on ${port} | http://localhost:${port}/`);
   }
 });
-
-console.log(`Server running at http://localhost:${port}/`);

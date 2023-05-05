@@ -24,4 +24,25 @@ const getSingle = async (req, res, next) => {
   }
 };
 
-export default { getAll, getSingle };
+const createContact = async (req, res, next) => {
+  try {
+    const newContact = req.body;
+    const result = await getDb().db().collection('contacts').insertOne(newContact);
+    const insertedContact = await getDb()
+      .db()
+      .collection('contacts')
+      .findOne({ _id: result.insertedId });
+    res
+      .status(201)
+      .send(
+        `The contact ${JSON.stringify(
+          insertedContact.firstName + ' ' + insertedContact.lastName
+        )} was created successfully`
+      );
+  } catch (err) {
+    console.error('Error creating new contact:', err);
+    next(err);
+  }
+};
+
+export default { getAll, getSingle, createContact };
