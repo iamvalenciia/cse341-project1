@@ -45,4 +45,14 @@ const createContact = async (req, res, next) => {
   }
 };
 
-export default { getAll, getSingle, createContact };
+export const getContacts = async () => {
+  try {
+    const result = await getDb().db().collection('contacts').find().toArray();
+    return result;
+  } catch (err) {
+    console.error('Error retrieving data from "contacts" collection:', err);
+    throw err;
+  }
+};
+
+export default { getAll, getSingle, createContact, getContacts };
