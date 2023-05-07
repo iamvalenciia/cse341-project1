@@ -30,12 +30,16 @@ const createContact = async (req, res, next) => {
     const result = await getDb().db().collection('contacts').insertOne(newContact);
 
     if (result.acknowledged) {
-      req.session.successMessage = 'The contact was successfully created.';
+      const newContactId = result.insertedId; // Get the ID of the newly inserted contact
+      req.session.successMessage = `The contact was successfully created. Here is the ID: ${newContactId}`;
+      res.status(201).json(result);
+      // res.redirect('/'); // Redirect to the home page
     } else {
       req.session.errorMessage = 'Failed to create the contact. Please try again.';
+      res.status(500).json({ error: 'Failed to create the contact. Please try again.' });
     }
 
-    res.redirect('/');
+    console.log('Status Code:', res.statusCode); // Check the status code
   } catch (err) {
     console.error('Error creating new contact:', err);
     next(err);
@@ -73,11 +77,12 @@ const updateContact = async (req, res, next) => {
 
     if (result.modifiedCount === 1) {
       req.session.successMessage = 'The contact was successfully updated.';
+      res.sendStatus(204); // Set the response status to 204
+      // res.redirect('/'); // Redirect to the home page
     } else {
       req.session.errorMessage = 'Failed to update the contact. Please try again.';
+      res.status(500).json({ error: 'Failed to update the contact. Please try again.' });
     }
-
-    res.redirect('/');
   } catch (err) {
     console.error('Error updating contact:', err);
     next(err);
@@ -91,11 +96,12 @@ const deleteContact = async (req, res, next) => {
 
     if (result.deletedCount === 1) {
       req.session.successMessage = 'The contact was successfully deleted.';
+      res.status(200).json({ message: 'Contact deleted successfully.' }); // Return a JSON response with status 200
+      // res.redirect('/'); // Redirect to the home page
     } else {
       req.session.errorMessage = 'Contact deletion failed.';
+      res.status(500).json({ error: 'Failed to delete the contact. Please try again.' });
     }
-
-    res.redirect('/');
   } catch (err) {
     console.error('Error deleting contact:', err);
     next(err);
