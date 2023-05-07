@@ -1,5 +1,6 @@
 import { getDb } from '../db/connect.js';
 import { ObjectId } from 'mongodb';
+import editContactForm from '../views/editContactForm.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -55,4 +56,54 @@ export const getContacts = async () => {
   }
 };
 
-export default { getAll, getSingle, createContact, getContacts };
+const editContact = async (req, res) => {
+  try {
+    const userId = new ObjectId(req.params.id);
+    const result = await getDb().db().collection('contacts').findOne({ _id: userId });
+    res.send(editContactForm(result));
+  } catch (err) {
+    console.error('Error retrieving contact for editing:', err);
+  }
+};
+
+const updateContact = async (req, res, next) => {
+  try {
+    const userId = new ObjectId(req.params.id);
+    const updatedContact = req.body;
+    const result = await getDb()
+      .db()
+      .collection('contacts')
+      .updateOne({ _id: userId }, { $set: updatedContact });
+
+    if (result.modifiedCount === 1) {
+      req.session.successMessage = 'The contact was successfully updated.';
+    } else {
+      req.session.errorMessage = 'Failed to update the contact. Please try again.';
+    }
+
+    res.redirect('/');
+  } catch (err) {
+    console.error('Error updating contact:', err);
+    next(err);
+  }
+};
+
+const deleteContact = async (req, res, next) => {
+  try {
+    const userId = new ObjectId(req.params.id);
+    const result = await getDb().db().collection('contacts').deleteOne({ _id: userId });
+
+    if (result.deletedCount === 1) {
+      req.session.successMessage = 'The contact was successfully deleted.';
+    } else {
+      req.session.errorMessage = 'Contact deletion failed.';
+    }
+
+    res.redirect('/');
+  } catch (err) {
+    console.error('Error deleting contact:', err);
+    next(err);
+  }
+};
+
+export default { getAll, getSingle, createContact, editContact, updateContact, deleteContact };

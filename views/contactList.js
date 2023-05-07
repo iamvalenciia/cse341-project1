@@ -3,42 +3,31 @@ export default function contactList(contacts) {
 
   for (const contact of contacts) {
     contactsHtml += `
-        <div class="card">
-          <h2>${contact.firstName + ' ' + contact.lastName}</h2>
-          <p>Email: ${contact.email}</p>
-          <p>Favorite Color: ${contact.favoriteColor}</p>
-          <p>Birthday: ${contact.birthday}</p>
-        </div>
-      `;
+      <div class="card">
+        <h2>${contact.firstName + ' ' + contact.lastName}</h2>
+        <p>Email: ${contact.email}</p>
+        <p>Favorite Color: ${contact.favoriteColor}</p>
+        <p>Birthday: ${contact.birthday}</p>
+        <form action="/contacts/edit/${contact._id}" method="GET">
+          <button type="submit">Edit</button>
+        </form>
+        <form action="/contacts/delete/${contact._id}" method="POST">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    `;
   }
 
   const html = `
-      <html>
-      <head>
-          <meta charset="utf-8">
-          <title>Contact List</title>
-          <style>
-              body {
-                font-family: Arial, sans-serif;
-              }
-  
-              .card {
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                padding: 10px;
-                margin-bottom: 10px;
-              }
-  
-              h2 {
-                color: #333;
-              }
-          </style>
-      </head>
-      <body>
-          ${contactsHtml}
-      </body>
-      </html>
-    `;
+    <html>
+    <head>
+        <!-- Rest of the code -->
+    </head>
+    <body>
+        ${contactsHtml}
+    </body>
+    </html>
+  `;
 
   return html;
 }

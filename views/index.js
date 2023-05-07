@@ -2,9 +2,16 @@ import contactForm from './contactForm.js';
 import { getContacts } from '../controllers/contacts.js';
 import contactList from './contactList.js';
 
-export default async function dashBoard() {
+export default async function dashBoard(successMessage, errorMessage) {
   const contacts = await getContacts();
   const contactListHtml = contactList(contacts);
+
+  let message = '';
+  if (successMessage) {
+    message = `<p class="success">${successMessage}</p>`;
+  } else if (errorMessage) {
+    message = `<p class="error">${errorMessage}</p>`;
+  }
 
   return `
     <html>
@@ -51,6 +58,21 @@ export default async function dashBoard() {
               padding: 10px;
               background-color: #f9f9f9;
             }
+
+            .success {
+              color: #008000;
+              background-color: #f0fff0;
+              border: 1px solid #90ee90;
+              padding: 10px;
+              border-radius: 5px;
+            }
+            .error {
+              color: #ff0000;
+              background-color: #ffe5e5;
+              border: 1px solid #ff9999;
+              padding: 10px;
+              border-radius: 5px;
+            }
         </style>
     </head>
     <body>
@@ -58,6 +80,7 @@ export default async function dashBoard() {
         <h1>Contact Management System</h1>
       </header>
       <main>
+          ${message}
           <h2>Create Contact</h2>
           ${contactForm()}
           <h2>Contact List</h2>
