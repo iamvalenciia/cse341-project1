@@ -30,16 +30,16 @@ const createContact = async (req, res, next) => {
     const result = await getDb().db().collection('contacts').insertOne(newContact);
 
     if (result.acknowledged) {
-      const newContactId = result.insertedId; // Get the ID of the newly inserted contact
+      const newContactId = result.insertedId;
       req.session.successMessage = `The contact was successfully created. Here is the ID: ${newContactId}`;
-      res.status(201).json(result);
-      // res.redirect('/'); // Redirect to the home page
+      res.setHeader('Location', '/');
+      res.status(201).end();
     } else {
       req.session.errorMessage = 'Failed to create the contact. Please try again.';
-      res.status(500).json({ error: 'Failed to create the contact. Please try again.' });
+      res.status(500);
     }
 
-    console.log('Status Code:', res.statusCode); // Check the status code
+    console.log('Status Code:', res.statusCode);
   } catch (err) {
     console.error('Error creating new contact:', err);
     next(err);
@@ -77,11 +77,11 @@ const updateContact = async (req, res, next) => {
 
     if (result.modifiedCount === 1) {
       req.session.successMessage = 'The contact was successfully updated.';
-      res.sendStatus(204); // Set the response status to 204
-      // res.redirect('/'); // Redirect to the home page
+      res.setHeader('Location', '/');
+      res.status(204).end();
     } else {
       req.session.errorMessage = 'Failed to update the contact. Please try again.';
-      res.status(500).json({ error: 'Failed to update the contact. Please try again.' });
+      res.status(500);
     }
   } catch (err) {
     console.error('Error updating contact:', err);
@@ -96,11 +96,11 @@ const deleteContact = async (req, res, next) => {
 
     if (result.deletedCount === 1) {
       req.session.successMessage = 'The contact was successfully deleted.';
-      res.status(200).json({ message: 'Contact deleted successfully.' }); // Return a JSON response with status 200
-      // res.redirect('/'); // Redirect to the home page
+      res.setHeader('Location', '/');
+      res.status(200).end();
     } else {
       req.session.errorMessage = 'Contact deletion failed.';
-      res.status(500).json({ error: 'Failed to delete the contact. Please try again.' });
+      res.status(500);
     }
   } catch (err) {
     console.error('Error deleting contact:', err);
