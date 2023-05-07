@@ -2,7 +2,7 @@ import contactForm from './contactForm.js';
 import { getContacts } from '../controllers/contacts.js';
 import contactList from './contactList.js';
 
-export default async function dashBoard(successMessage, errorMessage) {
+export default async function dashBoard(successMessage, errorMessage, resultToUpdate) {
   const contacts = await getContacts();
   const contactListHtml = contactList(contacts);
 
@@ -11,6 +11,11 @@ export default async function dashBoard(successMessage, errorMessage) {
     message = `<p class="success">${successMessage}</p>`;
   } else if (errorMessage) {
     message = `<p class="error">${errorMessage}</p>`;
+  }
+
+  let editContact = '';
+  if (resultToUpdate) {
+    editContact = editContactForm(resultToUpdate);
   }
 
   return `
@@ -42,6 +47,12 @@ export default async function dashBoard(successMessage, errorMessage) {
               box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             }
 
+            .container {
+              display: flex;
+              column-gap: 50px;
+              align-items: flex-start;
+            }
+
             h1 {
               color: #ffff;
             }
@@ -52,13 +63,13 @@ export default async function dashBoard(successMessage, errorMessage) {
               gap: 20px;
             }
 
-            .card {
-              border: 1px solid #ccc;
+            .card2 {
+              border: 1px solid #0076b6;
               border-radius: 5px;
-              padding: 10px;
+              padding: 20px;
               background-color: #f9f9f9;
             }
-
+            
             .success {
               color: #008000;
               background-color: #f0fff0;
@@ -81,13 +92,41 @@ export default async function dashBoard(successMessage, errorMessage) {
       </header>
       <main>
           ${message}
-          <h2>Create Contact</h2>
-          ${contactForm()}
+          <div class="container">
+            ${contactForm()}
+            ${editContact}
+          </div>
           <h2>Contact List</h2>
           <div class="contact-list">${contactListHtml}</div>
       </main>
       <footer></footer>
     </body>
     </html>
+  `;
+}
+
+function editContactForm(contact) {
+  return `
+    <div class="card2">
+      <h2>Edit Contact</h2>
+      <form action="/contacts/update/${contact._id}" method="POST">
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstName" value="${contact.firstName}">
+        <br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="lastName" value="${contact.lastName}">
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" name="email" value="${contact.email}">
+        <br>
+        <label for="favoriteColor">Favorite Color:</label>
+        <input type="text" name="favoriteColor" value="${contact.favoriteColor}">
+        <br>
+        <label for="birthday">Birthday:</label>
+        <input type="date" name="birthday" value="${contact.birthday}">
+        <br>
+        <input type="submit" value="Update">
+      </form>
+    </div>
   `;
 }

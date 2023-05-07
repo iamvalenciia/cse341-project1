@@ -1,6 +1,5 @@
 import { getDb } from '../db/connect.js';
 import { ObjectId } from 'mongodb';
-import editContactForm from '../views/editContactForm.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -29,17 +28,14 @@ const createContact = async (req, res, next) => {
   try {
     const newContact = req.body;
     const result = await getDb().db().collection('contacts').insertOne(newContact);
-    const insertedContact = await getDb()
-      .db()
-      .collection('contacts')
-      .findOne({ _id: result.insertedId });
-    res
-      .status(201)
-      .send(
-        `The contact ${JSON.stringify(
-          insertedContact.firstName + ' ' + insertedContact.lastName
-        )} was created successfully`
-      );
+
+    if (result.acknowledged) {
+      req.session.successMessage = 'The contact was successfully created.';
+    } else {
+      req.session.errorMessage = 'Failed to create the contact. Please try again.';
+    }
+
+    res.redirect('/');
   } catch (err) {
     console.error('Error creating new contact:', err);
     next(err);
@@ -59,8 +55,8 @@ export const getContacts = async () => {
 const editContact = async (req, res) => {
   try {
     const userId = new ObjectId(req.params.id);
-    const result = await getDb().db().collection('contacts').findOne({ _id: userId });
-    res.send(editContactForm(result));
+    req.session.resultToUpdate = await getDb().db().collection('contacts').findOne({ _id: userId });
+    res.redirect('/');
   } catch (err) {
     console.error('Error retrieving contact for editing:', err);
   }

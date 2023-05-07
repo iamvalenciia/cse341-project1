@@ -10,9 +10,10 @@ export default function contactForm() {
               }
               
               .card {
-                  border: 1px solid #ccc;
-                  border-radius: 4px;
-                  padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 20px;
+                background-color: #f9f9f9;
               }
   
               form {
@@ -54,6 +55,7 @@ export default function contactForm() {
       </head>
       <body>
           <div class="card">
+              <h2>Create Contact</h2>
               <form action="/contacts/create-contact" method="POST">
                   <label for="firstName">First Name:</label>
                   <input type="text" id="firstName" name="firstName" required>
