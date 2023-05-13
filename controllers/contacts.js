@@ -199,7 +199,16 @@ const deleteContact = async (req, res, next) => {
       required: true,
       type: 'string'
     }
-    #swagger.responses[200] = { description: 'Contact deleted successfully' }
+     #swagger.responses[200] = {
+      description: 'The contact has been successfully deleted. Below is an example of the information that has been removed.',
+      schema: {
+        'firstName': 'name',
+        'lastName': 'last_name',
+        'email': 'email@example.com',
+        'favoriteColor': 'blue',
+        'birthday': '2000-10-09'
+      },
+    }
     #swagger.responses[500] = { description: 'Internal Server Error' }
   */
 };
