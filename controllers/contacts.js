@@ -68,6 +68,7 @@ const getSingle = async (req, res, next) => {
 };
 
 const createContact = async (req, res, next) => {
+  console.log('Received JSON data:', req.body);
   try {
     const newContact = req.body;
     const result = await getDb().db().collection('contacts').insertOne(newContact);
