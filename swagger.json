@@ -1,0 +1,280 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "My API Contacts",
+    "description": "Temple API Contacts",
+    "version": "1.0.0"
+  },
+  "host": "cse341valencia.onrender.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/contacts/": {
+      "get": {
+        "description": "Get all contacts",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "645f1489181ef425e389115c"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Gabriel"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Angel"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "gabriel@example.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "red"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "1995-10-09"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "description": "Get a single contact by ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "User ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "exmaple@example.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "blue_example"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "year-mm-dd(2000-10-09)"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/contacts/create": {
+      "post": {
+        "description": "Create a new contact",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Contact data",
+            "required": [
+              "firstName",
+              "lastName",
+              "email",
+              "favoriteColor",
+              "birthday"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "exmaple@example.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "blue_example"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "year-mm-dd(2000-10-09)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contact created successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/contacts/update/{id}": {
+      "put": {
+        "description": "Update a contact",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the contact to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Update the contact data",
+            "required": [
+              "firstName",
+              "lastName",
+              "email",
+              "favoriteColor",
+              "birthday"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "update_name"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "update_last_name"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "update@email.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "update_color"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "update_date(2000-10-09)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Contact updated successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/contacts/delete/{id}": {
+      "delete": {
+        "description": "Delete a contact by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the contact to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact deleted successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  }
+}

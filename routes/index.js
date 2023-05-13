@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import contactsRouter from './contacts.js';
-import dashBoard from '../views/index.js';
+import dashBoard from '../home_view/index.js';
+import { readFileSync } from 'fs';
+import { serve, setup } from 'swagger-ui-express';
+const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
+const swaggerDocument = loadJSON('../swagger.json');
 
 const router = Router();
 
@@ -22,5 +26,7 @@ router.get('/', async (req, res, next) => {
 });
 
 router.use('/contacts', contactsRouter);
+router.use('/api-docs', serve);
+router.get('/api-docs', setup(swaggerDocument));
 
 export default router;
