@@ -72,24 +72,20 @@ const createContact = async (req, res, next) => {
   try {
     const newContact = req.body;
     const result = await getDb().db().collection('contacts').insertOne(newContact);
+    res.setHeader('Content-Type', 'application/json');
 
     if (result.acknowledged) {
-      const newContactId = result.insertedId;
-      req.session.successMessage = `The contact was successfully created. Here is the ID: ${newContactId}`;
       res.status(201).end();
     } else {
-      req.session.errorMessage = 'Failed to create the contact. Please try again.';
       res.status(500);
     }
-
-    console.log('Status Code:', res.statusCode);
   } catch (err) {
     console.error('Error creating new contact:', err);
     next(err);
   }
   /*
     #swagger.auto = false
-    #swagger.path = '/contacts'
+    #swagger.path = '/'
     #swagger.method = 'post'
     #swagger.consumes = ['application/json']
     #swagger.produces = ['application/json']

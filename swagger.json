@@ -11,7 +11,7 @@
     "https"
   ],
   "paths": {
-    "/": {
+    "/api-docs": {
       "get": {
         "description": "",
         "parameters": [],
@@ -20,13 +20,6 @@
             "description": "OK"
           }
         }
-      }
-    },
-    "/api-docs": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
       }
     },
     "/contacts/": {
@@ -71,6 +64,62 @@
                 "name": "main"
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new contact",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Contact data",
+            "required": [
+              "firstName",
+              "lastName",
+              "email",
+              "favoriteColor",
+              "birthday"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "exmaple@example.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "blue_example"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "year-mm-dd(2000-10-09)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contact created successfully"
           },
           "500": {
             "description": "Internal Server Error"
@@ -124,64 +173,6 @@
                 "name": "main"
               }
             }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/contacts/create": {
-      "post": {
-        "description": "Create a new contact",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "Contact data",
-            "required": [
-              "firstName",
-              "lastName",
-              "email",
-              "favoriteColor",
-              "birthday"
-            ],
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "write_here"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "write_here"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "exmaple@example.com"
-                },
-                "favoriteColor": {
-                  "type": "string",
-                  "example": "blue_example"
-                },
-                "birthday": {
-                  "type": "string",
-                  "example": "year-mm-dd(2000-10-09)"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Contact created successfully"
           },
           "500": {
             "description": "Internal Server Error"
