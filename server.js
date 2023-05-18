@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import { initDb } from './db/connect.js';
 import dotenv from 'dotenv';
 import allRoutes from './routes/index.js';
-import session from 'express-session';
 import swaggerUi from 'swagger-ui-express';
 
 import { readFileSync } from 'fs';
@@ -18,14 +17,6 @@ const app = express();
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app
-  .use(
-    session({
-      // eslint-disable-next-line no-undef
-      secret: process.env.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: true
-    })
-  )
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .use((req, res, next) => {

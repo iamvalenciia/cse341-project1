@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import contactsRouter from './contacts.js';
-import dashBoard from '../home_view/index.js';
 import { readFileSync } from 'fs';
 import { serve, setup } from 'swagger-ui-express';
 const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
@@ -10,15 +9,7 @@ const router = Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const html = await dashBoard(
-      req.session.successMessage,
-      req.session.errorMessage,
-      req.session.resultToUpdate
-    ); // Pass the success message to the dashboard
-    req.session.successMessage = ''; // Clear the messages
-    req.session.errorMessage = '';
-    req.session.resultToUpdate = '';
-    res.send(html);
+    res.send('API CONTACTS');
   } catch (err) {
     console.error('Error rendering dashboard:', err);
     next(err);

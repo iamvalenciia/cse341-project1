@@ -112,16 +112,6 @@ const createContact = async (req, res, next) => {
   */
 };
 
-export const getContacts = async () => {
-  try {
-    const result = await getDb().db().collection('contacts').find().toArray();
-    return result;
-  } catch (err) {
-    console.error('Error retrieving data from "contacts" collection:', err);
-    throw err;
-  }
-};
-
 const updateContact = async (req, res, next) => {
   try {
     const userId = new ObjectId(req.params.id);
