@@ -8,6 +8,7 @@ const getAll = async (req, res, next) => {
     res.status(200).json(result);
   } catch (err) {
     console.error('Error retrieving data from "contacts" collection:', err);
+    res.status(500);
     next(err);
   }
   /*
@@ -17,7 +18,7 @@ const getAll = async (req, res, next) => {
     #swagger.produces = ['application/json']
     #swagger.description = 'Get all contacts'
     #swagger.responses[200] = {
-      description: 'Success',
+      description: 'Contacts retrieved successfully',
       schema: {
         '_id': '645f1489181ef425e389115c',
         'firstName': 'Gabriel',
@@ -72,7 +73,6 @@ const createContact = async (req, res, next) => {
   try {
     const newContact = req.body;
     const result = await getDb().db().collection('contacts').insertOne(newContact);
-    res.setHeader('Content-Type', 'application/json');
 
     if (result.acknowledged) {
       res.status(201).end();
@@ -85,7 +85,7 @@ const createContact = async (req, res, next) => {
   }
   /*
     #swagger.auto = false
-    #swagger.path = '/'
+    #swagger.path = '/contacts/create'
     #swagger.method = 'post'
     #swagger.consumes = ['application/json']
     #swagger.produces = ['application/json']
@@ -118,10 +118,8 @@ const updateContact = async (req, res, next) => {
       .updateOne({ _id: userId }, { $set: updatedContact });
 
     if (result.modifiedCount === 1) {
-      req.session.successMessage = 'The contact was successfully updated.';
       res.status(204).end();
     } else {
-      req.session.errorMessage = 'Failed to update the contact. Please try again.';
       res.status(500);
     }
   } catch (err) {
@@ -130,10 +128,8 @@ const updateContact = async (req, res, next) => {
   }
   /*
     #swagger.auto = false
-    #swagger.path = '/contacts/{id}'
+    #swagger.path = '/contacts/update/{id}'
     #swagger.method = 'put'
-    #swagger.consumes = ['application/json']
-    #swagger.produces = ['application/json']
     #swagger.description = 'Update a contact'
     #swagger.parameters['id'] = {
       in: 'path',
@@ -165,10 +161,8 @@ const deleteContact = async (req, res, next) => {
     const result = await getDb().db().collection('contacts').deleteOne({ _id: userId });
 
     if (result.deletedCount === 1) {
-      req.session.successMessage = 'The contact was successfully deleted.';
       res.status(200).end();
     } else {
-      req.session.errorMessage = 'Contact deletion failed.';
       res.status(500);
     }
   } catch (err) {
@@ -177,7 +171,7 @@ const deleteContact = async (req, res, next) => {
   }
   /*
     #swagger.auto = false
-    #swagger.path = '/contacts/{id}'
+    #swagger.path = '/contacts/delete/{id}'
     #swagger.method = 'delete'
     #swagger.description = 'Delete a contact by ID'
     #swagger.parameters['id'] = {
@@ -186,17 +180,8 @@ const deleteContact = async (req, res, next) => {
       required: true,
       type: 'string'
     }
-     #swagger.responses[200] = {
-      description: 'The contact has been successfully deleted. Below is an example of the information that has been removed.',
-      schema: {
-        'firstName': 'name',
-        'lastName': 'last_name',
-        'email': 'email@example.com',
-        'favoriteColor': 'blue',
-        'birthday': '2000-10-09'
-      },
-    }
-    #swagger.responses[500] = { description: 'Internal Server Error' }
+    #swagger.responses[200] = { description: 'The contact has been successfully deleted.' }
+    #swagger.responses[500] = { description: 'Internal Server Error.' }
   */
 };
 

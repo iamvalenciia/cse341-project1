@@ -1,9 +1,9 @@
 # GET ALL CONTACTS LOCALY
-GET http://localhost:3000/contacts HTTP/1.1
+GET http://localhost:3000/contacts/ HTTP/1.1
 
 ###
 # GET CONTACT BY ID LOCALY
-GET http://localhost:3000/contacts/644c40804a331796e2772232 HTTP/1.1
+GET http://localhost:3000/contacts/6454b9b570f3363825bf1c71 HTTP/1.1
 
 
 ###

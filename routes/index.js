@@ -7,13 +7,8 @@ const swaggerDocument = loadJSON('../swagger.json');
 
 const router = Router();
 
-router.use('/', async (req, res, next) => {
-  try {
-    res.send('API contacts');
-  } catch (err) {
-    console.error('Error rendering dashboard:', err);
-    next(err);
-  }
+router.get('/', (req, res) => {
+  res.send('API contacts');
 });
 
 router.use('/contacts', contactsRouter);

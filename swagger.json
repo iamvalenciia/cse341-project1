@@ -5,13 +5,13 @@
     "description": "Temple API Contacts",
     "version": "1.0.0"
   },
-  "host": "cse341valencia.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
-    "/api-docs": {
+    "/": {
       "get": {
         "description": "",
         "parameters": [],
@@ -20,6 +20,13 @@
             "description": "OK"
           }
         }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     },
     "/contacts/": {
@@ -31,7 +38,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "Contacts retrieved successfully",
             "schema": {
               "type": "object",
               "properties": {
@@ -64,62 +71,6 @@
                 "name": "main"
               }
             }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "description": "Create a new contact",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "Contact data",
-            "required": [
-              "firstName",
-              "lastName",
-              "email",
-              "favoriteColor",
-              "birthday"
-            ],
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "write_here"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "write_here"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "exmaple@example.com"
-                },
-                "favoriteColor": {
-                  "type": "string",
-                  "example": "blue_example"
-                },
-                "birthday": {
-                  "type": "string",
-                  "example": "year-mm-dd(2000-10-09)"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Contact created successfully"
           },
           "500": {
             "description": "Internal Server Error"
@@ -180,15 +131,67 @@
         }
       }
     },
-    "/contacts/update/{id}": {
-      "put": {
-        "description": "Update a contact",
+    "/contacts/create": {
+      "post": {
+        "description": "Create a new contact",
         "consumes": [
           "application/json"
         ],
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Contact data",
+            "required": [
+              "firstName",
+              "lastName",
+              "email",
+              "favoriteColor",
+              "birthday"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "write_here"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "exmaple@example.com"
+                },
+                "favoriteColor": {
+                  "type": "string",
+                  "example": "blue_example"
+                },
+                "birthday": {
+                  "type": "string",
+                  "example": "year-mm-dd(2000-10-09)"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Contact created successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/contacts/update/{id}": {
+      "put": {
+        "description": "Update a contact",
         "parameters": [
           {
             "name": "id",
@@ -259,38 +262,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The contact has been successfully deleted. Below is an example of the information that has been removed.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "name"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "last_name"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "email@example.com"
-                },
-                "favoriteColor": {
-                  "type": "string",
-                  "example": "blue"
-                },
-                "birthday": {
-                  "type": "string",
-                  "example": "2000-10-09"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
+            "description": "The contact has been successfully deleted."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Internal Server Error."
           }
         }
       }
