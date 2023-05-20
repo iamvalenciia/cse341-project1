@@ -21,9 +21,9 @@
     "express-session": "^1.17.3",
     "helmet": "^6.1.5",
     "mongodb": "^5.3.0",
+    "swagger-express-router": "latest",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.3",
-    "swagger-express-router": "latest"
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "eslint": "^8.39.0",
