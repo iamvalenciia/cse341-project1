@@ -1,18 +1,21 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My API Contacts",
+    "title": "Social Media - API Documentation",
     "description": "Temple API Contacts",
     "version": "1.0.0"
   },
-  "host": "cse341-project1-ue8w.onrender.com",
+  "host": "localhost:8000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "Default"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -24,6 +27,9 @@
     },
     "/api-docs": {
       "get": {
+        "tags": [
+          "Swagger"
+        ],
         "description": "",
         "parameters": [],
         "responses": {}
@@ -31,6 +37,9 @@
     },
     "/users/": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "Get all users",
         "produces": [
           "application/json"
@@ -82,6 +91,9 @@
         }
       },
       "post": {
+        "tags": [
+          "Users"
+        ],
         "description": "Create a new User",
         "consumes": [
           "application/json"
@@ -148,6 +160,9 @@
     },
     "/users/{id}": {
       "get": {
+        "tags": [
+          "Users"
+        ],
         "description": "Get a single User by ID",
         "produces": [
           "application/json"
@@ -209,6 +224,9 @@
     },
     "/users/update/{id}": {
       "put": {
+        "tags": [
+          "Users"
+        ],
         "description": "Update a User",
         "parameters": [
           {
@@ -276,6 +294,9 @@
     },
     "/users/delete/{id}": {
       "delete": {
+        "tags": [
+          "Users"
+        ],
         "description": "Delete a User by ID",
         "parameters": [
           {
@@ -289,6 +310,256 @@
         "responses": {
           "200": {
             "description": "The User has been successfully deleted."
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    },
+    "/posts/": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Get all posts",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "posts retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "example": "juan"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "juan2000"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                },
+                "likes": {
+                  "type": "number",
+                  "example": 1
+                },
+                "views": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Create a new Post",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Post data",
+            "required": [
+              "firstName",
+              "lastName",
+              "email",
+              "favoriteColor",
+              "birthday"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "example": "juan"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "juan2000"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                },
+                "likes": {
+                  "type": "number",
+                  "example": 1
+                },
+                "views": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Post created successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Get a single Post by ID",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Post ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "example": "juan"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "juan2000"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                },
+                "likes": {
+                  "type": "number",
+                  "example": 1
+                },
+                "views": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/update/{id}": {
+      "put": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Update a Post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Post to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Update the Post data",
+            "required": [
+              "name",
+              "PostName",
+              "email",
+              "password",
+              "gender"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "string",
+                  "example": "juan"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "juan2000"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                },
+                "likes": {
+                  "type": "number",
+                  "example": 1
+                },
+                "views": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Post updated successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "description": "Delete a Post by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the Post to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Post has been successfully deleted."
           },
           "500": {
             "description": "Internal Server Error."

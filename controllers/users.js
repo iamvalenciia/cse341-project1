@@ -43,7 +43,7 @@ const getSingle = async (req, res, next) => {
     console.error('Error retrieving data from "users" collection:', err);
     next(err);
   }
-  /*  
+  /*
     #swagger.auto = false
     #swagger.path = '/users/{id}'
     #swagger.method = 'get'
