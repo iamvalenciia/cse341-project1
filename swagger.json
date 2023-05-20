@@ -5,10 +5,10 @@
     "description": "Temple API Contacts",
     "version": "1.0.0"
   },
-  "host": "localhost:8000",
+  "host": "cse341-project1-ue8w.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {
