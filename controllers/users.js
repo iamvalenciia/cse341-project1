@@ -99,8 +99,8 @@ const createUser = async (req, res, next) => {
         'email': 'juan@gmail.com',
         'password': 'password',
         'gender': 'male',
-        'followersCount': '10',
-        'followingCount': '0',
+        'followersCount': 10,
+        'followingCount': 0
       },
       required: ['firstName', 'lastName', 'email', 'favoriteColor', 'birthday']
     }

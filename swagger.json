@@ -5,7 +5,7 @@
     "description": "Temple API Contacts",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:8000",
   "basePath": "/",
   "schemes": [
     "http"
@@ -29,42 +29,46 @@
         "responses": {}
       }
     },
-    "/contacts/": {
+    "/users/": {
       "get": {
-        "description": "Get all contacts",
+        "description": "Get all users",
         "produces": [
           "application/json"
         ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "Contacts retrieved successfully",
+            "description": "users retrieved successfully",
             "schema": {
               "type": "object",
               "properties": {
-                "_id": {
+                "name": {
                   "type": "string",
-                  "example": "645f1489181ef425e389115c"
+                  "example": "juan"
                 },
-                "firstName": {
+                "userName": {
                   "type": "string",
-                  "example": "Gabriel"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Angel"
+                  "example": "juan2000"
                 },
                 "email": {
                   "type": "string",
-                  "example": "gabriel@example.com"
+                  "example": "juan@gmail.com"
                 },
-                "favoriteColor": {
+                "password": {
                   "type": "string",
-                  "example": "red"
+                  "example": "password"
                 },
-                "birthday": {
+                "gender": {
                   "type": "string",
-                  "example": "1995-10-09"
+                  "example": "male"
+                },
+                "followersCount": {
+                  "type": "number",
+                  "example": 10
+                },
+                "followingCount": {
+                  "type": "number",
+                  "example": 0
                 }
               },
               "xml": {
@@ -76,11 +80,75 @@
             "description": "Internal Server Error"
           }
         }
+      },
+      "post": {
+        "description": "Create a new User",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "User data",
+            "required": [
+              "firstName",
+              "lastName",
+              "email",
+              "favoriteColor",
+              "birthday"
+            ],
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name_text": {
+                  "type": "string",
+                  "example": "juan"
+                },
+                "userName": {
+                  "type": "string",
+                  "example": "juan2000"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password"
+                },
+                "gender": {
+                  "type": "string",
+                  "example": "male"
+                },
+                "followersCount": {
+                  "type": "number",
+                  "example": 10
+                },
+                "followingCount": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
-    "/contacts/{id}": {
+    "/users/{id}": {
       "get": {
-        "description": "Get a single contact by ID",
+        "description": "Get a single User by ID",
         "produces": [
           "application/json"
         ],
@@ -99,25 +167,33 @@
             "schema": {
               "type": "object",
               "properties": {
-                "firstName": {
+                "name": {
                   "type": "string",
-                  "example": "write_here"
+                  "example": "juan"
                 },
-                "lastName": {
+                "userName": {
                   "type": "string",
-                  "example": "write_here"
+                  "example": "juan2000"
                 },
                 "email": {
                   "type": "string",
-                  "example": "exmaple@example.com"
+                  "example": "juan@gmail.com"
                 },
-                "favoriteColor": {
+                "password": {
                   "type": "string",
-                  "example": "blue_example"
+                  "example": "password"
                 },
-                "birthday": {
+                "gender": {
                   "type": "string",
-                  "example": "year-mm-dd(2000-10-09)"
+                  "example": "male"
+                },
+                "followersCount": {
+                  "type": "number",
+                  "example": 10
+                },
+                "followingCount": {
+                  "type": "number",
+                  "example": 0
                 }
               },
               "xml": {
@@ -131,108 +207,58 @@
         }
       }
     },
-    "/contacts/create": {
-      "post": {
-        "description": "Create a new contact",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "Contact data",
-            "required": [
-              "firstName",
-              "lastName",
-              "email",
-              "favoriteColor",
-              "birthday"
-            ],
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "write_here"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "write_here"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "exmaple@example.com"
-                },
-                "favoriteColor": {
-                  "type": "string",
-                  "example": "blue_example"
-                },
-                "birthday": {
-                  "type": "string",
-                  "example": "year-mm-dd(2000-10-09)"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Contact created successfully"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/contacts/update/{id}": {
+    "/users/update/{id}": {
       "put": {
-        "description": "Update a contact",
+        "description": "Update a User",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the contact to update",
+            "description": "ID of the User to update",
             "required": true,
             "type": "string"
           },
           {
             "name": "obj",
             "in": "body",
-            "description": "Update the contact data",
+            "description": "Update the User data",
             "required": [
-              "firstName",
-              "lastName",
+              "name",
+              "userName",
               "email",
-              "favoriteColor",
-              "birthday"
+              "password",
+              "gender"
             ],
             "schema": {
               "type": "object",
               "properties": {
-                "firstName": {
+                "name": {
                   "type": "string",
-                  "example": "update_name"
+                  "example": "juan"
                 },
-                "lastName": {
+                "userName": {
                   "type": "string",
-                  "example": "update_last_name"
+                  "example": "juan2000"
                 },
                 "email": {
                   "type": "string",
-                  "example": "update@email.com"
+                  "example": "juan@gmail.com"
                 },
-                "favoriteColor": {
+                "password": {
                   "type": "string",
-                  "example": "update_color"
+                  "example": "password"
                 },
-                "birthday": {
+                "gender": {
                   "type": "string",
-                  "example": "update_date(2000-10-09)"
+                  "example": "male"
+                },
+                "followersCount": {
+                  "type": "number",
+                  "example": 10
+                },
+                "followingCount": {
+                  "type": "number",
+                  "example": 0
                 }
               }
             }
@@ -240,7 +266,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Contact updated successfully"
+            "description": "User updated successfully"
           },
           "500": {
             "description": "Internal Server Error"
@@ -248,21 +274,21 @@
         }
       }
     },
-    "/contacts/delete/{id}": {
+    "/users/delete/{id}": {
       "delete": {
-        "description": "Delete a contact by ID",
+        "description": "Delete a User by ID",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "ID of the contact to delete",
+            "description": "ID of the User to delete",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "The contact has been successfully deleted."
+            "description": "The User has been successfully deleted."
           },
           "500": {
             "description": "Internal Server Error."

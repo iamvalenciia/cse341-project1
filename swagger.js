@@ -5,8 +5,8 @@ const doc = {
     title: 'My API Contacts',
     description: 'Temple API Contacts'
   },
-  host: 'cse341valencia.onrender.com',
-  schemes: ['https']
+  host: 'localhost:3000',
+  schemes: ['http']
 };
 
 const outputFile = './swagger.json';

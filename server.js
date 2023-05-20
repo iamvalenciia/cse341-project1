@@ -8,7 +8,7 @@ import { readFileSync } from 'fs';
 const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
 const swaggerDocument = loadJSON('./swagger.json');
 
-const port = 3000;
+const port = 8000;
 const app = express();
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
