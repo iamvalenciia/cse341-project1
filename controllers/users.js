@@ -119,7 +119,7 @@ const updateUser = async (req, res, next) => {
       .db('cse341-project1')
       .collection('users')
       .updateOne({ _id: userId }, { $set: updatedUser });
-    res.status(200).json(result).end();
+    res.status(204).json(result).end();
     console.log('result:' + { result });
   } catch (err) {
     res.status(500);

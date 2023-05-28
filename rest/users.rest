@@ -1,0 +1,80 @@
+#--------------- LOCALY --------------#
+# GET ALL users
+GET http://localhost:8000/users HTTP/1.1
+###
+# GET USER BY ID
+GET http://localhost:8000/users/6454b9b570f3363825bf1c71 HTTP/1.1
+###
+# CREATE USER
+POST http://localhost:8000/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "testingBYUI",
+  "userName": "juan2000",
+  "email": "juan@gmail.com",
+  "password": "password",
+  "gender": "male",
+  "followersCount": 66666,
+  "followingCount": 0
+}
+###
+#UPDATE USER
+PUT http://localhost:8000/users/update/646875591780f3643960f8fd HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "validator2",
+  "userName": "ddd",
+  "email": "juan@gmail.com",
+  "password": "password",
+  "gender": "male",
+  "followersCount": 66666,
+  "followingCount": 0
+}
+###
+#DELETE USER
+DELETE http://localhost:8000/users/delete/ HTTP/1.1
+Content-Type: application/json
+
+
+
+#--------------- DEPLOYMENT --------------#
+# GET ALL users
+###
+GET https://cse341-project1-ue8w.onrender.com/users HTTP/1.1
+###
+# GET USER BY ID
+GET https://cse341-project1-ue8w.onrender.com/users/646875591780f3643960f8fd HTTP/1.1
+###
+# CREATE USER
+POST https://cse341-project1-ue8w.onrender.com/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "juan valencia",
+  "userName": "juan2000",
+  "email": "juan@gmail.com",
+  "password": "password",
+  "gender": "male",
+  "followersCount": 66666,
+  "followingCount": 0
+}
+###
+#UPDATE USER
+PUT https://cse341-project1-ue8w.onrender.com/users/update/644c40744a331796e2772230 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "juan valencia",
+  "userName": "juan2000",
+  "email": "juan@gmail.com",
+  "password": "password",
+  "gender": "male",
+  "followersCount": 66666,
+  "followingCount": 0
+}
+###
+#DELETE USER
+DELETE https://cse341-project1-ue8w.onrender.com/users/delete/645830ce11e2c40b0221afd1 HTTP/1.1
+Content-Type: application/json
