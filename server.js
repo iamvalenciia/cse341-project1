@@ -15,7 +15,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app
   .use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

@@ -61,7 +61,7 @@ Content-Type: application/json
 
 {
   "user_id": "646875591780f36",
-  "content": "",
+  "content": "content byui",
   "timestam": "2023-05-20T12:34:56Z",
   "likes": 20,
   "views": 0
